@@ -1,0 +1,12 @@
+# create a named volume
+docker volume create my-volume
+
+# Create a container and mount the volume into the container filesystem
+docker run  -it --rm --mount source=my-volume,destination=/my-data/ ubuntu:22.04
+# There is a similar (but shorter) syntax using -v which accomplishes the same
+docker run  -it --rm -v my-volume:/my-data ubuntu:22.04
+
+# Now we can create and store the file into the location we mounted the volume
+echo "Hello from the container!" > /my-data/hello.txt
+cat my-data/hello.txt
+exit
